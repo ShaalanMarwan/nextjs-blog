@@ -20,6 +20,11 @@ export default function UserProfilePage({
 export async function getServerSideProps({ query }: { query: any }) {
   const { username } = query;
   const userDoc = await getUserWithUsername(username);
+  if (!userDoc) {
+    return {
+      notFound: true,
+    };
+  }
   let user = null;
   let posts = null;
   if (userDoc) {
@@ -28,9 +33,8 @@ export async function getServerSideProps({ query }: { query: any }) {
       .collection("posts")
       .where("published", "==", true)
       .orderBy("createdAt", "desc")
-      .limit(5)
-      posts = (await postsQuery.get()).docs.map(postToJSON);
-
+      .limit(5);
+    posts = (await postsQuery.get()).docs.map(postToJSON);
   }
   return {
     props: { user, posts },
