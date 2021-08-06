@@ -1,7 +1,25 @@
+import React from "react";
+import PostContent from "../../components/PostContent";
 import { firestore, getUserWithUsername, postToJSON } from "../../lib/firebase";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
-export default function PostPage() {
-  return <main></main>;
+import styles from "../../styles/Post.module.css";
+export default function PostPage(props: any) {
+  const postRef = firestore.doc(props.path);
+  const [realtimePost] = useDocumentData(postRef);
+  const post = realtimePost || props.post;
+  return (
+    <main className={styles.container}>
+      <section>
+        <PostContent post={post} />
+      </section>
+      <aside className="card">
+        <p>
+          <strong>{post.heartCount || 0}💙</strong>
+        </p>
+      </aside>
+    </main>
+  );
 }
 
 export async function getStaticProps({ params }: any) {
@@ -34,6 +52,6 @@ export async function getStaticPaths() {
   });
   return {
     paths,
-    fallback:'blocking'
+    fallback: "blocking",
   };
 }
