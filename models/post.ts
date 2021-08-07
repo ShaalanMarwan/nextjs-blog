@@ -1,6 +1,6 @@
 export interface Post {
   content: string;
-  createdAt: Date;
+  createdAt: any;
   heartCount: number;
   slug: string;
   title: string;

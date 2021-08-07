@@ -1,10 +1,11 @@
+/* eslint-disable @next/next/link-passhref */
 import { Post } from "../models/post";
 import Link from "next/link";
-export default function PostFeedPage({
+export default function PostFeed({
   posts,
   admin,
 }: {
-  posts: Post[];
+  posts: Post[] | any[]|undefined;
   admin?: any;
 }): JSX.Element {
   return (

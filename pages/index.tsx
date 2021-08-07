@@ -26,9 +26,9 @@ export default function Home(props: any) {
     setLoading(true);
     const last = posts[posts.length - 1];
     const cursor =
-      typeof last.createdAt === "number"
+      typeof last?.createdAt === "number"
         ? fromMillis(last.createdAt)
-        : last.createdAt;
+        : last?.createdAt;
 
     const query = firestore
       .collectionGroup("posts")

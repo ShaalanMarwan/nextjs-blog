@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/link-passhref */
 import Link from "next/link";
 
 export default function Custom404() {
